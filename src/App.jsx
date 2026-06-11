@@ -17,10 +17,12 @@ export default function App() {
 
   useEffect(() => {
     if (videoRef.current) {
-      // Try to unmute the video
-      videoRef.current.muted = false;
+      // Try to play the video automatically
+      videoRef.current.play().catch((error) => {
+        console.log("Autoplay blocked:", error);
+      });
     }
-  }, []);
+  }, [showIntro]);
 
   return (
     <div className="min-h-screen w-full relative overflow-hidden">
@@ -32,6 +34,7 @@ export default function App() {
             className="max-h-screen w-auto"
             src="/intro take 4.mp4"
             autoPlay
+            muted
             playsInline
             preload="auto"
             poster="/new.jpeg"
